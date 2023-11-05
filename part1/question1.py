@@ -1,10 +1,10 @@
 ################################################################################
 #     ____                          __     _                          ___
 #    / __ \  __  __  ___    _____  / /_   (_)  ____    ____          <  /
-#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         / / 
-#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        / /  
-#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /_/   
-#                                                                        
+#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         / /
+#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        / /
+#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /_/
+#
 #  Question 1
 ################################################################################
 #
@@ -14,22 +14,42 @@
 # Read the test suite to know the values that these functions should return.
 
 def get_city_temperature(city):
-   if city == "Quito":
-      return 22
-   if city == "Sao Paulo":
-      return 17
-   if city == "San Francisco":
-      return 16
+    """
+    Return the defined temperature of a city.
+
+    Keyword arguments:
+    city -- string with the name of city that you want to know the temperature.
+    """
+    if city == "Quito":
+        return 22
+    if city == "Sao Paulo":
+        return 17
+    if city == "San Francisco":
+        return 16
+    if city == "New York":
+        return 14
+    else:
+        return None
+
 
 def get_city_weather(city):
+    """
+    Return the sky condition  of a city.
 
-  sky_condition = None
+    Keyword arguments:
+    city -- string with the name of city that you want to know the sky condition.
+    """
+    sky_condition = None
 
-  if city == "Sao Paulo":
-     sky_condition = "cloudy"
-  elif city == "New York":
-     sky_condition = "rainy"
+    if city == "Sao Paulo":
+        sky_condition = "cloudy"
+    elif city == "New York":
+        sky_condition = "rainy"
+    elif city == "Quito":
+        sky_condition = "sunny"
+    else:
+        sky_condition = "not defined"
 
-  temperature = get_city_temperature(city)
+    temperature = get_city_temperature(city)
 
-  return str(temperature) + " degrees and " + sky_condition
+    return str(temperature) + " degrees and " + sky_condition

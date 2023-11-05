@@ -1,0 +1,743 @@
+diff --git a/part1/question1.py b/part1/question1.py
+index 5c99fdb..102f7d2 100644
+--- a/part1/question1.py
++++ b/part1/question1.py
+@@ -1,10 +1,10 @@
+ ################################################################################
+ #     ____                          __     _                          ___
+ #    / __ \  __  __  ___    _____  / /_   (_)  ____    ____          <  /
+-#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         / / 
+-#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        / /  
+-#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /_/   
+-#                                                                        
++#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         / /
++#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        / /
++#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /_/
++#
+ #  Question 1
+ ################################################################################
+ #
+@@ -14,22 +14,42 @@
+ # Read the test suite to know the values that these functions should return.
+ 
+ def get_city_temperature(city):
+-   if city == "Quito":
+-      return 22
+-   if city == "Sao Paulo":
+-      return 17
+-   if city == "San Francisco":
+-      return 16
++    """
++    Return the defined temperature of a city.
++
++    Keyword arguments:
++    city -- string with the name of city that you want to know the temperature.
++    """
++    if city == "Quito":
++        return 22
++    if city == "Sao Paulo":
++        return 17
++    if city == "San Francisco":
++        return 16
++    if city == "New York":
++        return 14
++    else:
++        return None
++
+ 
+ def get_city_weather(city):
++    """
++    Return the sky condition  of a city.
+ 
+-  sky_condition = None
++    Keyword arguments:
++    city -- string with the name of city that you want to know the sky condition.
++    """
++    sky_condition = None
+ 
+-  if city == "Sao Paulo":
+-     sky_condition = "cloudy"
+-  elif city == "New York":
+-     sky_condition = "rainy"
++    if city == "Sao Paulo":
++        sky_condition = "cloudy"
++    elif city == "New York":
++        sky_condition = "rainy"
++    elif city == "Quito":
++        sky_condition = "sunny"
++    else:
++        sky_condition = "not defined"
+ 
+-  temperature = get_city_temperature(city)
++    temperature = get_city_temperature(city)
+ 
+-  return str(temperature) + " degrees and " + sky_condition
+\ No newline at end of file
++    return str(temperature) + " degrees and " + sky_condition
+diff --git a/part1/question1_test.py b/part1/question1_test.py
+index 6bddae0..7faae04 100644
+--- a/part1/question1_test.py
++++ b/part1/question1_test.py
+@@ -1,7 +1,10 @@
+ from question1 import get_city_weather
+ 
++
+ def test_get_city_weather():
+ 
+-  assert get_city_weather("Quito") == "22 degrees and sunny"
++    assert get_city_weather("Quito") == "22 degrees and sunny"
++
++    assert get_city_weather("New York") == "14 degrees and rainy"
+ 
+-  assert get_city_weather("New York") == "14 degrees and rainy"
++    # assert get_city_weather("San Francisco") == "16 degrees and not defined"
+diff --git a/part1/question2.py b/part1/question2.py
+index 34a9b01..b7215fb 100644
+--- a/part1/question2.py
++++ b/part1/question2.py
+@@ -1,21 +1,30 @@
+ ################################################################################
+-#     ____                          __     _                          ___ 
++#     ____                          __     _                          ___
+ #    / __ \  __  __  ___    _____  / /_   (_)  ____    ____          |__ \
+ #   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         __/ /
+-#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        / __/ 
+-#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /____/ 
+-#                                                                         
++#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        / __/
++#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /____/
++#
+ #  Question 2
+ ################################################################################
+ #
+ # Instructions:
+-# Write a function that will swap a tuple of two items. For example, the function 
+-# should change (x, y) into (y, x). 
++# Write a function that will swap a tuple of two items. For example, the function
++# should change (x, y) into (y, x).
+ # Assign the function to `swapper` so that the function `run_swapper(..)` can use
+-# it. As always, there is a test suite that checks the result. It is in 
++# it. As always, there is a test suite that checks the result. It is in
+ # `question2_test.py.`
+ 
+-swapper = None
++
++# We can use a lambda expression to swap the items of the tuple.
++swapper = (lambda x: (x[1], x[0]))
++
+ 
+ def run_swapper(list_of_tuples):
+-  return list(map(swapper, list_of_tuples))
+\ No newline at end of file
++    """
++    Swap the order of elements in a tuple.
++
++    Keyword arguments:
++    list_of_tuples -- list of tuples to which you want to exchange the positions of your items.
++    """
++    return list(map(swapper, list_of_tuples))
+diff --git a/part1/question3.py b/part1/question3.py
+index 04fab99..3d23932 100644
+--- a/part1/question3.py
++++ b/part1/question3.py
+@@ -1,44 +1,94 @@
+ ################################################################################
+ #     ____                          __     _                          _____
+ #    / __ \  __  __  ___    _____  / /_   (_)  ____    ____          |__  /
+-#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \          /_ < 
+-#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        ___/ / 
+-#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /____/  
+-#                                                                          
++#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \          /_ <
++#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        ___/ /
++#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /____/
++#
+ #  Question 3
+ ################################################################################
+ #
+ # Instructions:
+-# Make a Python class for a magical oven that can combine ingredients at 
++# Make a Python class for a magical oven that can combine ingredients at
+ # different temperatures to craft special materials.
+-# 
++#
+ # The oven class should have the methods:
+ # - add(item) to add an oven to be combined
+ # - freeze() to freeze the ingredients
+ # - boil() to boil the ingredients
+ # - wait() to combine the ingredients with no change in temperature
+-# - get_output() to get the result 
++# - get_output() to get the result
+ #
+ # You will need to change the `make_oven()` function to return a new instance
+ # of your oven.
+ #
+-# The `alchemy_combine()` function will use your oven. You can see the expected 
++# The `alchemy_combine()` function will use your oven. You can see the expected
+ # formulas and their outputs in the test file, `question3_test.py`.
+ 
++class Oven:
++
++    def __init__(self):
++        self.ingredients = []
++        self.result = None
++        self.temperature = None
++
++    def add(self, item):
++        self.ingredients.append(item)
++
++    def freeze(self):
++        if "water" in self.ingredients and "air" in self.ingredients:
++            self.result = "snow"
++        else:
++            self.result = "unknow material"
++
++    def boil(self):
++        print(self.ingredients)
++        if (self.temperature == 150):
++            print("PIZZA")
++            pizza_ingredients = ["cheese", "dough", "tomato"]
++
++            if all(
++                    elemento in self.ingredients for elemento in pizza_ingredients):
++                self.result = "pizza"
++            else:
++                self.result = "A new recipe discovered :o"
++
++        elif (self.temperature == 5000):
++            gold_ingredients = ["lead", "mercury"]
++
++            # If all elements in the oven are the same in gold_ingredients, return the gold
++            if all(
++                    elemento in self.ingredients for elemento in gold_ingredients):
++                self.result = "gold"
++            else:
++                self.result = "unknow material"
++        else:
++            self.result = "A new recipe discovered :o"
++
++    def wait(self):
++        pass
++
++    def get_output(self):
++        return self.result
++
++
+ # This function should return an oven instance!
+ def make_oven():
+-  None
++    return Oven()
++
+ 
+ def alchemy_combine(oven, ingredients, temperature):
+-  
+-  for item in ingredients:
+-    oven.add(item)
+-
+-  if temperature < 0:
+-    oven.freeze()
+-  elif temperature >= 100:
+-    oven.boil()
+-  else:
+-    oven.wait()
+-
+-  return oven.get_output()
+\ No newline at end of file
++
++    for item in ingredients:
++        oven.add(item)
++
++    oven.temperature = temperature
++
++    if temperature < 0:
++        oven.freeze()
++    elif temperature >= 100:
++        oven.boil()
++    else:
++        oven.wait()
++
++    return oven.get_output()
+diff --git a/part1/question3_test.py b/part1/question3_test.py
+index 6cb6c89..a1521e7 100644
+--- a/part1/question3_test.py
++++ b/part1/question3_test.py
+@@ -1,19 +1,22 @@
++from question3 import alchemy_combine, make_oven
++
++
+ def test_alchemy_combine():
+ 
+-  assert alchemy_combine(
+-    make_oven(),
+-    ["lead", "mercury"],
+-    5000
+-  ) == "gold"
++    assert alchemy_combine(
++        make_oven(),
++        ["lead", "mercury"],
++        5000
++    ) == "gold"
+ 
+-  assert alchemy_combine(
+-    make_oven(),
+-    ["water", "air"],
+-    -100
+-  ) == "snow"
++    assert alchemy_combine(
++        make_oven(),
++        ["water", "air"],
++        -100
++    ) == "snow"
+ 
+-  assert alchemy_combine(
+-    make_oven(),
+-    ["cheese", "dough", "tomato"],
+-    150
+-  ) == "pizza"
+\ No newline at end of file
++    assert alchemy_combine(
++        make_oven(),
++        ["cheese", "dough", "tomato"],
++        150
++    ) == "pizza"
+diff --git a/part1/question4.py b/part1/question4.py
+index 1e1b2bf..363cb43 100644
+--- a/part1/question4.py
++++ b/part1/question4.py
+@@ -5,16 +5,16 @@ import pets_db
+ #    / __ \  __  __  ___    _____  / /_   (_)  ____    ____          / // /
+ #   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \        / // /_
+ #  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /       /__  __/
+-#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/          /_/   
+-#                                                                          
++#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/          /_/
++#
+ #  Question 4
+ ################################################################################
+ #
+ # Instructions:
+-# Question 4 and Question 5 are about writing SQL. THey use the database that is 
+-# created in the file `pets_db.py`. 
++# Question 4 and Question 5 are about writing SQL. THey use the database that is
++# created in the file `pets_db.py`.
+ # These questions use a database called SQLite. You do not need to install anything.
+-# In the file `pets_db.py` three tables are created. Data is then added to each 
++# In the file `pets_db.py` three tables are created. Data is then added to each
+ # of the tables. The questions below are about how the data in each of the tables
+ # is related.
+ 
+@@ -24,25 +24,25 @@ import pets_db
+ 
+ sql_pets_owned_by_nobody = """
+ 
+-Your SQL here.
++SELECT a.name,a.species,a.age FROM animals as a WHERE animal_id NOT IN (SELECT pet_id FROM people_animals);
+ 
+ """
+ 
+ # Part 4.B:
+-# Write SQL to select how the number of pets are older than their owners. 
++# Write SQL to select how the number of pets are older than their owners.
+ # The output should be an integer.
+ 
+ sql_pets_older_than_owner = """
+ 
+-Your SQL here.
++SELECT COUNT(*) FROM people_animals as pa INNER JOIN people as p ON p.person_id = pa.owner_id INNER JOIN animals as a ON a.animal_id= pa.pet_id WHERE a.age>p.age;
+ 
+ """
+ 
+-# Part 4.C: BONUS CHALLENGE! 
++# Part 4.C: BONUS CHALLENGE!
+ # Write SQL to select the pets that are owned by Bessie and nobody else.
+ # The output should be a list of tuples in the format: (<person name>, <pet name>, <species>)
+ sql_only_owned_by_bessie = """ 
+ 
+-Your SQL here.
++SELECT p.name,a.name,a.species FROM people_animals as pa INNER JOIN people as p ON p.person_id = pa.owner_id INNER JOIN animals as a ON a.animal_id= pa.pet_id WHERE pa.owner_id =(SELECT p.person_id FROM people as p WHERE p.name='bessie');
+ 
+-"""
+\ No newline at end of file
++"""
+diff --git a/part1/question4_test.py b/part1/question4_test.py
+index b01006c..b8efd73 100644
+--- a/part1/question4_test.py
++++ b/part1/question4_test.py
+@@ -1,38 +1,42 @@
+ import pets_db as pets_db
+ from question4 import sql_pets_owned_by_nobody, sql_only_owned_by_bessie, sql_pets_older_than_owner
+ 
++
+ def test_question4_pets_older_than_owner():
+-  pets_db.create_db()
++    pets_db.create_db()
++
++    with pets_db.get_connection() as con:
++        res = con.execute(sql_pets_older_than_owner)
++        result = res.fetchone()
+ 
+-  with pets_db.get_connection() as con:
+-    res = con.execute(sql_pets_older_than_owner)
+-    result = res.fetchone()
++    assert len(result) == 1
++    assert result[0] == 2
+ 
+-  assert len(result) == 1
+-  assert result[0] == 2
+ 
+ def test_question4_pets_owned_by_nobody():
+-  pets_db.create_db()
++    pets_db.create_db()
+ 
+-  with pets_db.get_connection() as con:
+-    res = con.execute(sql_pets_owned_by_nobody)
+-    rows = res.fetchall()
++    with pets_db.get_connection() as con:
++        res = con.execute(sql_pets_owned_by_nobody)
++        rows = res.fetchall()
+ 
+-  rows.sort()
++    rows.sort()
++    print(rows[0])
++    print(rows[1])
++    assert len(rows) == 2
++    assert rows[0] == ('petey', 'gray whale', 38)
++    assert rows[1] == ('shannon', 'cow', 14)
+ 
+-  assert len(rows) == 2
+-  assert rows[0] == ('petey', 'gray whale', 38)
+-  assert rows[1] == ('shannon', 'cow', 14)
+ 
+ def test_question4_only_owned_by_bessie():
+-  pets_db.create_db()
++    pets_db.create_db()
+ 
+-  with pets_db.get_connection() as con:
+-    res = con.execute(sql_only_owned_by_bessie)
+-    rows = res.fetchall()
++    with pets_db.get_connection() as con:
++        res = con.execute(sql_only_owned_by_bessie)
++        rows = res.fetchall()
+ 
+-  rows.sort()
++    rows.sort()
+ 
+-  assert len(rows) == 2
+-  assert rows[0] == ('bessie', 'leyla', 'gray whale')
+-  assert rows[1] == ('bessie', 'randolph', 'lemur')
+\ No newline at end of file
++    assert len(rows) == 2
++    assert rows[0] == ('bessie', 'leyla', 'gray whale')
++    assert rows[1] == ('bessie', 'randolph', 'lemur')
+diff --git a/part1/question5.py b/part1/question5.py
+index f76654f..7c46343 100644
+--- a/part1/question5.py
++++ b/part1/question5.py
+@@ -1,15 +1,15 @@
+ ################################################################################
+ #     ____                          __     _                           ______
+ #    / __ \  __  __  ___    _____  / /_   (_)  ____    ____           / ____/
+-#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         /___ \  
+-#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        ____/ /  
+-#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /_____/   
+-#                                                                            
++#   / / / / / / / / / _ \  / ___/ / __/  / /  / __ \  / __ \         /___ \
++#  / /_/ / / /_/ / /  __/ (__  ) / /_   / /  / /_/ / / / / /        ____/ /
++#  \___\_\ \__,_/  \___/ /____/  \__/  /_/   \____/ /_/ /_/        /_____/
++#
+ #  Question 5
+ ################################################################################
+ #
+ # Instructions:
+-# This questions continues to use the database we worked with in Question 4. In 
++# This questions continues to use the database we worked with in Question 4. In
+ # this question, we will made some modifications ot the table.
+ 
+ # Part 5.A:
+@@ -19,18 +19,22 @@
+ # vegetarian integer
+ 
+ sql_create_favorite_foods = """
+-
+-Your SQL here.
++  CREATE TABLE favorite_foods (
++      food_id integer PRIMARY KEY,
++      name text not null,
++      vegetarian int not null
++    );
+ 
+ """
+ 
+ # Part 5.B:
+ # Alter the animals and people tables by adding a new column to each called 'favorite_food_id'
+-# The test suite will verify the new changes by inserting some new rows. 
++# The test suite will verify the new changes by inserting some new rows.
+ 
+ sql_alter_tables_with_favorite_food = """
+ 
+-Your SQL here.
++ALTER TABLE animals ADD favorite_food_id INT;
++ALTER TABLE people ADD favorite_food_id INT;
+ 
+ """
+ 
+@@ -40,6 +44,6 @@ Your SQL here.
+ 
+ sql_select_all_vegetarian_pets = """
+ 
+-Your SQL here.
++SELECT a.name,ff.name FROM animals as a INNER JOIN favorite_foods as ff ON a.favorite_food_id = ff.food_id WHERE ff.vegetarian=1;
+ 
+-"""
+\ No newline at end of file
++"""
+diff --git a/part1/question5_test.py b/part1/question5_test.py
+index b5d932e..e742681 100644
+--- a/part1/question5_test.py
++++ b/part1/question5_test.py
+@@ -2,73 +2,83 @@ import pets_db as pets_db
+ from question5 import sql_create_favorite_foods, sql_alter_tables_with_favorite_food, sql_select_all_vegetarian_pets
+ 
+ FOODS = [
+-  (1, "spinach", 1),
+-  (2, "termites", 0),
+-  (3, "turnips", 1),
+-  (4, "cough drops", 1),
+-  (5, "shrimp", 0),
++    (1, "spinach", 1),
++    (2, "termites", 0),
++    (3, "turnips", 1),
++    (4, "cough drops", 1),
++    (5, "shrimp", 0),
+ ]
+ 
+ PEOPLE_FOOD = [
+-  (4, "scott"), # cough drops
+-  (5, "bessie"), # shrimp
+-  (3, "karen"), # turnips
++    (4, "scott"),  # cough drops
++    (5, "bessie"),  # shrimp
++    (3, "karen"),  # turnips
+ ]
+ 
+ ANIMALS_FOOD = [
+-  (5, "petey"), # shrimp
+-  (1, "leyla"), # spinach
+-  (2, "thommy"), # termites
+-  (4, "ricky"), # cough drops
+-  (1, "martin"), # spinach
+-  (3, "shannon"), # turnips
+-  (2, "randolph"), # termites
++    (5, "petey"),  # shrimp
++    (1, "leyla"),  # spinach
++    (2, "thommy"),  # termites
++    (4, "ricky"),  # cough drops
++    (1, "martin"),  # spinach
++    (3, "shannon"),  # turnips
++    (2, "randolph"),  # termites
+ ]
+ 
++
+ def insert_foods(con):
+-  con.executemany("INSERT INTO favorite_foods VALUES(?, ?, ?)", FOODS)
++    con.executemany("INSERT INTO favorite_foods VALUES(?, ?, ?)", FOODS)
++
+ 
+ def create_favorite_foods(con):
+-  con.execute(sql_create_favorite_foods)
++    con.execute(sql_create_favorite_foods)
++
+ 
+ def alter_people_animals_food(con):
+-  con.executescript(sql_alter_tables_with_favorite_food);
++    con.executescript(sql_alter_tables_with_favorite_food)
++
+ 
+ def update_people_animals_food(con):
+-  con.executemany("UPDATE people SET favorite_food_id = ? WHERE name = ?", PEOPLE_FOOD)
+-  con.executemany("UPDATE animals SET favorite_food_id = ? WHERE name = ?", ANIMALS_FOOD)
++    con.executemany(
++        "UPDATE people SET favorite_food_id = ? WHERE name = ?", PEOPLE_FOOD)
++    con.executemany(
++        "UPDATE animals SET favorite_food_id = ? WHERE name = ?", ANIMALS_FOOD)
++
+ 
+ def test_create_favorite_foods():
+-  pets_db.create_db()
++    pets_db.create_db()
++
++    with pets_db.get_connection() as con:
++        create_favorite_foods(con)
++        insert_foods(con)
++
+ 
+-  with pets_db.get_connection() as con:
+-    create_favorite_foods(con)
+-    insert_foods(con)
+-    
+ def test_alter_tables_with_favorite_food():
+-  pets_db.create_db()
++    pets_db.create_db()
++
++    with pets_db.get_connection() as con:
++        create_favorite_foods(con)
++        insert_foods(con)
++        alter_people_animals_food(con)
++        update_people_animals_food(con)
+ 
+-  with pets_db.get_connection() as con:
+-    create_favorite_foods(con)
+-    insert_foods(con)
+-    alter_people_animals_food(con)
+-    update_people_animals_food(con)
+ 
+ def test_select_all_vegetarian_pets():
+-  pets_db.create_db()
++    pets_db.create_db()
+ 
+-  with pets_db.get_connection() as con:
+-    create_favorite_foods(con)
+-    insert_foods(con)
+-    alter_people_animals_food(con)
+-    update_people_animals_food(con)
++    with pets_db.get_connection() as con:
++        create_favorite_foods(con)
++        insert_foods(con)
++        alter_people_animals_food(con)
++        update_people_animals_food(con)
+ 
+-    res = con.execute(sql_select_all_vegetarian_pets)
+-    rows = res.fetchall()
++        res = con.execute(sql_select_all_vegetarian_pets)
++        rows = res.fetchall()
++        print(rows)
+ 
+-  rows.sort()
++    rows.sort()
+ 
+-  assert rows[0] == ('leyla', 'spinach')
+-  assert rows[1] == ('martin', 'spinach')
+-  assert rows[2] == ('ricky', 'cough drops')
+-  assert rows[3] == ('shannon', 'turnips')
++    assert rows[0] == ('leyla', 'spinach')
++    assert rows[1] == ('martin', 'spinach')
++    assert rows[2] == ('ricky', 'cough drops')
++    assert rows[3] == ('shannon', 'turnips')
+diff --git a/part2/src/main/java/org/velezreyes/quiz/question6/Drink.java b/part2/src/main/java/org/velezreyes/quiz/question6/Drink.java
+index 61c1fdd..28b7576 100644
+--- a/part2/src/main/java/org/velezreyes/quiz/question6/Drink.java
++++ b/part2/src/main/java/org/velezreyes/quiz/question6/Drink.java
+@@ -1,6 +1,7 @@
+ package org.velezreyes.quiz.question6;
+ 
+ public interface Drink {
++
+   public String getName();
+ 
+   public boolean isFizzy();
+diff --git a/part2/src/main/java/org/velezreyes/quiz/question6/KarenTea.java b/part2/src/main/java/org/velezreyes/quiz/question6/KarenTea.java
+new file mode 100644
+index 0000000..d1058c5
+--- /dev/null
++++ b/part2/src/main/java/org/velezreyes/quiz/question6/KarenTea.java
+@@ -0,0 +1,17 @@
++package org.velezreyes.quiz.question6;
++
++public class KarenTea implements Drink{
++
++    private String name = "KarenTea";
++    public static int price = 100;
++
++    @Override
++    public String getName() {
++        return name;
++    }
++
++    @Override
++    public boolean isFizzy() {
++        return false;
++    }
++}
+diff --git a/part2/src/main/java/org/velezreyes/quiz/question6/ScottCola.java b/part2/src/main/java/org/velezreyes/quiz/question6/ScottCola.java
+new file mode 100644
+index 0000000..f97ab96
+--- /dev/null
++++ b/part2/src/main/java/org/velezreyes/quiz/question6/ScottCola.java
+@@ -0,0 +1,15 @@
++package org.velezreyes.quiz.question6;
++
++public class ScottCola implements Drink{
++    private String name = "ScottCola";
++    public static int price = 75;
++    @Override
++    public String getName() {
++        return name;
++    }
++
++    @Override
++    public boolean isFizzy() {
++        return true;
++    }
++}
+diff --git a/part2/src/main/java/org/velezreyes/quiz/question6/VendingMachineImpl.java b/part2/src/main/java/org/velezreyes/quiz/question6/VendingMachineImpl.java
+index 85742c4..5921de7 100644
+--- a/part2/src/main/java/org/velezreyes/quiz/question6/VendingMachineImpl.java
++++ b/part2/src/main/java/org/velezreyes/quiz/question6/VendingMachineImpl.java
+@@ -1,9 +1,55 @@
+ package org.velezreyes.quiz.question6;
+ 
+-public class VendingMachineImpl {
++import java.util.Arrays;
++import java.util.Objects;
++
++public class VendingMachineImpl implements VendingMachine{
++
++  // Create a static variable for use singleton pattern and only has one instance of VendingMachine interface.
++  private static VendingMachine instance;
++  private int currentMoney = 0;
++  // Define the available drinks in this vending machine.
++  private final String[] availableDrinks = {"ScottCola","KarenTea"};
+ 
+   public static VendingMachine getInstance() {
+-    // Fix me!
++    if (instance == null) {
++      // If the instance has not been created, we create it.
++      instance = new VendingMachineImpl();
++    }
++    return instance;
++  }
++
++  @Override
++  public void insertQuarter() {
++    currentMoney += 25;
++  }
++
++  @Override
++  public Drink pressButton(String name) throws NotEnoughMoneyException, UnknownDrinkException {
++
++    // Verify if the vending machine has the drink requested in its inventory.
++    if(!Arrays.asList(availableDrinks).contains(name)){
++      throw new UnknownDrinkException();
++    }
++
++    if(currentMoney < ScottCola.price && Objects.equals(name,"ScottCola")){
++      throw new NotEnoughMoneyException();
++    }
++
++    if(currentMoney < KarenTea.price && Objects.equals(name,"KarenTea")){
++      throw new NotEnoughMoneyException();
++    }
++
++    if(currentMoney>=75 && Objects.equals(name, "ScottCola")){
++      currentMoney -= 75;
++      return new ScottCola();
++    }
++
++    if(currentMoney>=100 && Objects.equals(name, "KarenTea")){
++      currentMoney -= 100;
++      return new KarenTea();
++    }
++
+     return null;
+   }
+ }
